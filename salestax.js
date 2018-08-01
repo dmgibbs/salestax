@@ -22,21 +22,33 @@ var companySalesData = [
   }
 ];
 
-function taxRates(){
-// return an array of tax rates from the salesObject
-
+function getRates(where){
+// returns the specific tax rate for a given province (abbreviated)
+  //console.log()
+  return  salesTaxRates[where];
 }
 
   function calculateSalesTax(salesData, taxRates) {
+
+
   // Implement your code here
     taxProvs = Object.keys(taxRates);
+    salesObj = {};
     console.log(taxProvs);
 
     for (var i=0; i <salesData.length;i++){
       subtotal = salesData[i]['sales'].reduce((acc, item) => acc+item,0);
-      console.log('Company: '+ salesData[i]['name'] +"Sales Total:" + subtotal);
 
+      taxTotal = subtotal * getRates(salesData[i]['province']);
+      console.log('Company: '+ salesData[i]['name'] +"Sales Total: $" + subtotal +" Tax Total: "+taxTotal);
+      if (salesObj[salesData[i]['name']] === undefined)
+        salesObj[salesData[i]['name']] = { "TotalSales": subtotal,  "TotalTaxes": taxTotal};
+      else {
+        salesObj[salesData[i]['name']]['TotalSales'] +=  subtotal;
+        salesObj[salesData[i]['name']]['TotalTaxes'] +=  taxTotal;
+      }
     }
+    return salesObj;
   }
   var results = calculateSalesTax(companySalesData, salesTaxRates);
 
