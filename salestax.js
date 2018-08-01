@@ -21,11 +21,24 @@ var companySalesData = [
     sales: [ 500, 100 ]
   }
 ];
-function calculateSalesTax(salesData, taxRates) {
-  // Implement your code here
+
+function taxRates(){
+// return an array of tax rates from the salesObject
+
 }
 
-var results = calculateSalesTax(companySalesData, salesTaxRates);
+  function calculateSalesTax(salesData, taxRates) {
+  // Implement your code here
+    taxProvs = Object.keys(taxRates);
+    console.log(taxProvs);
+
+    for (var i=0; i <salesData.length;i++){
+      subtotal = salesData[i]['sales'].reduce((acc, item) => acc+item,0);
+      console.log('Company: '+ salesData[i]['name'] +"Sales Total:" + subtotal);
+
+    }
+  }
+  var results = calculateSalesTax(companySalesData, salesTaxRates);
 
 /* Expected Results:
 {
@@ -39,3 +52,4 @@ var results = calculateSalesTax(companySalesData, salesTaxRates);
   }
 }
 */
+console.log(results);
